@@ -1,0 +1,6 @@
+npx sequelize-cli db:migrate:undo:all
+npx sequelize db:migrate
+npx sequelize-cli db:seed:all
+
+
+git rm --cached *.extensión // Elimina archivo del cache de git
