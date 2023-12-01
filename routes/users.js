@@ -3,20 +3,10 @@ const router = express.Router()
 const users = require('../database/controllers/users')
 
 
-router.post('/users/create', async (req, res) => {
-    const { mail, pass, profile_id, city_id, category_id, dni, phone, state } = req.body
-    const user = await users.create(mail, pass, profile_id, city_id, category_id, dni, phone, state)
-    res.json(user)
-})
+
 
 router.get('/users/findAll', async (req, res) => {
     const user = await users.findAll()
-    res.json(user)
-})
-
-router.post('/users/findOneByMail', async (req, res) => {
-    const { mail } = req.body
-    const user = await users.findOneByMail(mail)
     res.json(user)
 })
 
@@ -26,16 +16,39 @@ router.post('/users/findOneById', async (req, res) => {
     res.json(user)
 })
 
-router.post('/users/findAllUsersByProfileCategoryAndCity', async (req, res) => {
-    const { profile_id, category_id, city_id } = req.body
-    const user = await users.findAllUsersByProfileCategoryAndCity(profile_id, category_id, city_id)
+
+router.post('/users/create', async (req, res) => {
+    const { user_name, name, pass, profile_id, } = req.body
+    const user = await users.create(user_name, name, pass, profile_id, )
     res.json(user)
 })
 
-router.post('/users/updateProfile', async (req, res) => {
-    const { id, profile_id } = req.body
-    const user = await users.updateProfile(id, profile_id)
+router.post('/users/update', async (req, res) => {
+    const { id, user_name, name, profile_id, } = req.body
+    const user = await users.update(id, user_name, name, profile_id, )
     res.json(user)
 })
+
+router.post('/users/updatePass', async (req, res) => {
+    const { id, pass } = req.body
+    const user = await users.updatePass(id, pass)
+    res.json(user)
+})
+
+
+router.post('/users/findOneByUserName', async (req, res) => {
+    const { user_name } = req.body
+    const user = await users.findOneByUserName(user_name)
+    res.json(user)
+})
+
+
+
+router.get('/users/findAllRecipients', async (req, res) => {
+    const user = await users.findAllRecipients()
+    res.json(user)
+})
+
+
 
 module.exports = router

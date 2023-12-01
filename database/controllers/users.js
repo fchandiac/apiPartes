@@ -1,9 +1,20 @@
-const { Users, Profiles, Cities, Countries, Categories, States } = require('../db')
+const { Users, Profiles } = require('../db')
 const users = {}
 
+// user_name: DataTypes.STRING,
+// name: DataTypes.STRING,
+// pass: DataTypes.STRING,
+// profile_id: DataTypes.INTEGER,
 
-async function create(mail, pass, profile_id, city_id, category_id, dni, phone, state){
-    const user = await Users.create({ mail: mail, pass: pass, profile_id: profile_id, city_id: city_id, category_id: category_id, dni: dni, phone: phone, state: state }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+
+
+async function create(user_name, name, pass, profile_id, ){
+    const user = await Users.create({ 
+        user_name: user_name,
+        name: name,
+        pass: pass,
+        profile_id: profile_id,
+     }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
     return user
 }
 
@@ -12,23 +23,7 @@ async function findAll(){
     const user = await Users.findAll(
         { 
             include: [
-                { model: Profiles, attributes: ['id', 'name'] },
-                { model: Cities, attributes: ['id', 'name'], include: [{ model: States, attributes: ['id', 'name'], include: [{ model: Countries, attributes: ['id', 'name'] }] }] },
-                { model: Categories, attributes: ['id', 'name'] }
-            ],
-        }
-        ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
-    return user
-}
-
-async function findOneByMail(mail){
-    const user = await Users.findOne(
-        { 
-            where: { mail: mail },
-            include: [
-                { model: Profiles, attributes: ['id', 'name'] },
-                { model: Cities, attributes: ['id', 'name'], include: [{ model: States, attributes: ['id', 'name'], include: [{ model: Countries, attributes: ['id', 'name'] }] }] },
-                { model: Categories, attributes: ['id', 'name'] }
+                { model: Profiles },
             ],
         }
         ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
@@ -41,40 +36,62 @@ async function findOneById(id){
             where: { id: id },
             include: [
                 { model: Profiles, attributes: ['id', 'name'] },
-                { model: Cities, attributes: ['id', 'name'], include: [{ model: States, attributes: ['id', 'name'], include: [{ model: Countries, attributes: ['id', 'name'] }] }] },
-                { model: Categories, attributes: ['id', 'name'] }
             ],
         }
         ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
     return user
 }
 
-async function findAllUsersByProfileCategoryAndCity(profile_id, category_id, city_id){
+async function findOneByUserName(user_name){
+    const user = await Users.findOne(
+        { 
+            where: { user_name: user_name },
+            include: [
+                { model: Profiles },
+            ],
+        }
+        ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return user
+}
+
+async function update(id, user_name, name, profile_id, ){
+    const user = await Users.update({ 
+        user_name: user_name,
+        name: name,
+        profile_id: profile_id,
+     }, { where: { id: id } }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return user
+}
+
+async function updatePass(id, pass){
+    const user = await Users.update({ 
+        pass: pass,
+     }, { where: { id: id } }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return user
+}
+
+async function findAllRecipients(){
     const user = await Users.findAll(
         { 
-            where: { profile_id: profile_id, category_id: category_id, city_id: city_id },
+            where: { profile_id: 1004 },
             include: [
-                { model: Profiles, attributes: ['id', 'name'] },
-                { model: Cities, attributes: ['id', 'name'], include: [{ model: States, attributes: ['id', 'name'], include: [{ model: Countries, attributes: ['id', 'name'] }] }] },
-                { model: Categories, attributes: ['id', 'name'] }
+                { model: Profiles },
             ],
         }
         ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
-    return user
-}
-
-async function updateProfile(id, profile_id){
-    const user = await Users.update({ profile_id: profile_id }, { where: { id: id } }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } }) 
     return user
 }
 
 
 users.create = create
 users.findAll = findAll
-users.findOneByMail = findOneByMail
 users.findOneById = findOneById
-users.findAllUsersByProfileCategoryAndCity = findAllUsersByProfileCategoryAndCity
-users.updateProfile = updateProfile
+users.update = update
+users.updatePass = updatePass
+users.findOneByUserName = findOneByUserName
+users.findAllRecipients = findAllRecipients
+
+
 
 
 module.exports = users

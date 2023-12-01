@@ -14,17 +14,15 @@ app.use(cors({ origin: '*' }))
 app.use(express.static(path.join(__dirname, './public')))
 
 
-app.use(require('./routes/countries'))
-app.use(require('./routes/states'))
-app.use(require('./routes/cities'))
-app.use(require('./routes/categories'))
+
 app.use(require('./routes/profiles'))
 app.use(require('./routes/users'))
-app.use(require('./routes/notifications'))
-app.use(require('./routes/searches'))
+app.use(require('./routes/departments'))
+app.use(require('./routes/recipients'))
+app.use(require('./routes/decrees_categories'))
 app.use(require('./routes/attachments'))
-app.use(require('./routes/applications'))
-app.use(require('./routes/offers'))
+app.use(require('./routes/decrees'))
+
 
 
 app.listen(port, () => {
