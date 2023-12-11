@@ -1,5 +1,5 @@
 const moment = require('moment')
-const {Decrees, Attachments, DecreesCategories, Departments, Users} = require('../db')
+const {Decrees, Attachments, DecreesCategories, Departments, Users, Recipients} = require('../db')
 const decrees = {}
 const { Op } = require("sequelize")
 
@@ -73,6 +73,24 @@ async function findAllBeteenDatesAndType(start, end, type){
     return decree
 }
 
+async function findAllBeteenDates(start, end){
+    const decree = await Decrees.findAll(
+        { 
+            where: { 
+                date: {
+                    [Op.between]: [start, end]
+                }
+            },
+            include: [
+                { model: Attachments },
+                { model: DecreesCategories },
+                { model: Departments },
+                { model: Users },
+            ],
+        }
+        ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return decree
+}
 
 async function getNextFolioByYear(year) {
     try {
@@ -95,10 +113,21 @@ async function getNextFolioByYear(year) {
     }
 }
 
+async function updateAttachment(id, attachment_id){
+    const decree = await Decrees.update(
+        { attachment_id: attachment_id },
+        { where: { id: id } }
+    ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+
+    return decree
+}
+
 decrees.create = create
 decrees.findAll = findAll
 decrees.findAllByYear = findAllByYear
 decrees.findAllBeteenDatesAndType = findAllBeteenDatesAndType
+decrees.findAllBeteenDates = findAllBeteenDates
+decrees.updateAttachment = updateAttachment
 
 module.exports = decrees
 

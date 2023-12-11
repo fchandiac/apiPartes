@@ -201,6 +201,35 @@ module.exports = {
                 initialAutoIncrement: 1001,
             }
         )
+
+// id
+// reference_type
+// reference_id
+// recipient_id
+// user_update_id
+// state
+
+            await queryInterface.createTable('distributions', {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER
+                },
+                reference_type: { type: Sequelize.STRING },
+                reference_id: { type: Sequelize.INTEGER },
+                recipient_id: { type: Sequelize.INTEGER },
+                user_update_id: { type: Sequelize.INTEGER },
+                state: { type: Sequelize.BOOLEAN },
+                created_at: { type: Sequelize.DATE },
+                updated_at: { type: Sequelize.DATE }
+            },
+                {
+                    initialAutoIncrement: 1001,
+                }
+            )
+
+
     },
     down: async (queryInterface, Sequelize) => {
         await queryInterface.dropAllTables()

@@ -56,9 +56,9 @@ module.exports = {
 
     await queryInterface.bulkInsert('recipients', [
       {
-        name: 'test',
-        repository: true,
-        url_repository: 'test_URL',
+        name: 'Sin Destinatario',
+        repository: false,
+        url_repository: '',
         department_id: 1001,
         user_id: 1001
       }
@@ -66,10 +66,10 @@ module.exports = {
 
     await queryInterface.bulkInsert('decrees_categories', [
       {
-        name: 'Otorga',
+        name: 'Revóquese',
       },
       {
-        name: 'Entreguese',
+        name: 'Rectifíquese',
       }
     ], {})
 

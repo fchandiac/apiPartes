@@ -22,6 +22,7 @@ app.use(require('./routes/recipients'))
 app.use(require('./routes/decrees_categories'))
 app.use(require('./routes/attachments'))
 app.use(require('./routes/decrees'))
+app.use(require('./routes/distributions'))
 
 
 

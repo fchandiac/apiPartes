@@ -26,4 +26,18 @@ router.post('/decrees/findAllBeteenDatesAndType', async (req, res) => {
     res.json(decree)
 })
 
+
+router.post('/decrees/findAllBeteenDates', async (req, res) => {
+    const { start, end } = req.body
+    const decree = await decrees.findAllBeteenDates(start, end)
+    res.json(decree)
+})
+
+
+router.post('/decrees/updateAttachment', async (req, res) => {
+    const { id, attachment_id } = req.body
+    const decree = await decrees.updateAttachment(id, attachment_id)
+    res.json(decree)
+})
+
 module.exports = router

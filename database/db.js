@@ -20,6 +20,7 @@ db.Recipients = require('./models/recipients')(db.connection, DataTypes)
 db.DecreesCategories = require('./models/decrees_categories')(db.connection, DataTypes)
 db.Attachments = require('./models/attachments')(db.connection, DataTypes)
 db.Decrees = require('./models/decrees')(db.connection, DataTypes)
+db.Distributions = require('./models/distributions')(db.connection, DataTypes)
 
 
 
@@ -33,6 +34,8 @@ db.Decrees.belongsTo(db.DecreesCategories)
 db.Decrees.belongsTo(db.Departments)
 db.Decrees.belongsTo(db.Users)
 db.Decrees.belongsTo(db.Attachments)
+db.Distributions.belongsTo(db.Recipients)
+
 
 
 
