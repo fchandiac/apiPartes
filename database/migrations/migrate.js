@@ -139,8 +139,6 @@ module.exports = {
             }
         )
 
-
-
         await queryInterface.createTable('decrees', {
             id: {
                 allowNull: false,
@@ -220,7 +218,7 @@ module.exports = {
                 reference_id: { type: Sequelize.INTEGER },
                 recipient_id: { type: Sequelize.INTEGER },
                 user_update_id: { type: Sequelize.INTEGER },
-                state: { type: Sequelize.BOOLEAN },
+                status: {type: Sequelize.INTEGER},
                 created_at: { type: Sequelize.DATE },
                 updated_at: { type: Sequelize.DATE }
             },

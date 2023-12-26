@@ -122,12 +122,29 @@ async function updateAttachment(id, attachment_id){
     return decree
 }
 
+function findOneById(id){
+    const decree = Decrees.findOne(
+        { 
+            where: { id: id },
+            include: [
+                { model: Attachments },
+                { model: DecreesCategories },
+                { model: Departments },
+                { model: Users },
+            ],
+        }
+        ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+
+    return decree
+}
+
 decrees.create = create
 decrees.findAll = findAll
 decrees.findAllByYear = findAllByYear
 decrees.findAllBeteenDatesAndType = findAllBeteenDatesAndType
 decrees.findAllBeteenDates = findAllBeteenDates
 decrees.updateAttachment = updateAttachment
+decrees.findOneById = findOneById
 
 module.exports = decrees
 

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         reference_id: DataTypes.INTEGER,
         recipient_id: DataTypes.INTEGER,
         user_update_id: DataTypes.INTEGER,
-        state: DataTypes.BOOLEAN
+        status: DataTypes.INTEGER, 
     }, {
         sequelize,
         modelName: 'Distributions',

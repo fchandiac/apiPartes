@@ -41,10 +41,26 @@ async function destroy(id){
     return recipient
 }
 
+async function findAllByUser(user_id){
+    const recipient = await Recipients.findAll({
+        where: { user_id: user_id },
+        include: [
+            { model: Users},
+            { model: Departments },
+        ],
+        order: [
+            ['createdAt', 'DESC'],
+        ],
+    }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return recipient
+}
+
 recipients.create = create
 recipients.findAll = findAll
 recipients.findOneById = findOneById
 recipients.update = update
 recipients.destroy = destroy
+recipients.findAllByUser = findAllByUser
+recipients.update = update
 
 module.exports = recipients

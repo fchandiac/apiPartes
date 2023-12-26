@@ -32,5 +32,12 @@ router.post('/recipients/destroy', async (req, res) => {
     res.json(recipient)
 })
 
+
+router.post('/recipients/findAllByUser', async (req, res) => {
+    const { user_id } = req.body
+    const recipient = await recipients.findAllByUser(user_id)
+    res.json(recipient)
+})
+
 module.exports = router
 

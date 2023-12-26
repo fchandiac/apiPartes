@@ -40,4 +40,10 @@ router.post('/decrees/updateAttachment', async (req, res) => {
     res.json(decree)
 })
 
+router.post('/decrees/findOneById', async (req, res) => {
+    const { id } = req.body
+    const decree = await decrees.findOneById(id)
+    res.json(decree)
+})
+
 module.exports = router
