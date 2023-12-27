@@ -23,6 +23,9 @@ app.use(require('./routes/decrees_categories'))
 app.use(require('./routes/attachments'))
 app.use(require('./routes/decrees'))
 app.use(require('./routes/distributions'))
+app.use(require('./routes/mail_references'))
+app.use(require('./routes/job_titles'))
+app.use(require('./routes/mails'))
 
 
 

@@ -132,7 +132,7 @@ module.exports = {
             url: { type: Sequelize.STRING },
             created_at: { type: Sequelize.DATE },
             updated_at: { type: Sequelize.DATE }
-           
+
         },
             {
                 initialAutoIncrement: 1001,
@@ -161,7 +161,7 @@ module.exports = {
                     key: 'id'
                 }
             },
-          
+
             decrees_category_id: {
                 allowNull: true,
                 unique: false,
@@ -200,35 +200,147 @@ module.exports = {
             }
         )
 
-// id
-// reference_type
-// reference_id
-// recipient_id
-// user_update_id
-// state
 
-            await queryInterface.createTable('distributions', {
-                id: {
-                    allowNull: false,
-                    autoIncrement: true,
-                    primaryKey: true,
-                    type: Sequelize.INTEGER
-                },
-                reference_type: { type: Sequelize.STRING },
-                reference_id: { type: Sequelize.INTEGER },
-                recipient_id: { type: Sequelize.INTEGER },
-                user_update_id: { type: Sequelize.INTEGER },
-                status: {type: Sequelize.INTEGER},
-                created_at: { type: Sequelize.DATE },
-                updated_at: { type: Sequelize.DATE }
+        await queryInterface.createTable('distributions', {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: Sequelize.INTEGER
             },
-                {
-                    initialAutoIncrement: 1001,
+            reference_type: { type: Sequelize.STRING },
+            reference_id: { type: Sequelize.INTEGER },
+            recipient_id: { type: Sequelize.INTEGER },
+            user_update_id: { type: Sequelize.INTEGER },
+            status: { type: Sequelize.INTEGER },
+            created_at: { type: Sequelize.DATE },
+            updated_at: { type: Sequelize.DATE }
+        },
+            {
+                initialAutoIncrement: 1001,
+            }
+        )
+
+        await queryInterface.createTable('mail_references', {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            },
+            name: { type: Sequelize.STRING },
+            created_at: { type: Sequelize.DATE },
+            updated_at: { type: Sequelize.DATE }
+        },
+            {
+                initialAutoIncrement: 1001,
+            }
+        )
+
+        await queryInterface.createTable('mails', {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            },
+            year: { type: Sequelize.INTEGER },
+            folio: { type: Sequelize.INTEGER },
+            matter: { type: Sequelize.STRING },
+            external: { type: Sequelize.BOOLEAN },
+            sender: { type: Sequelize.STRING },
+            date: { type: Sequelize.DATE },
+            mail_reference_id: {
+                allowNull: true,
+                unique: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
+                references: {
+                    model: 'mail_references',
+                    key: 'id'
                 }
-            )
+            },
+            user_id: {
+                allowNull: true,
+                unique: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
+                references: {
+                    model: 'users',
+                    key: 'id'
+                }
+            },
+            department_id: {
+                allowNull: true,
+                unique: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
+                references: {
+                    model: 'departments',
+                    key: 'id'
+                }
+            },
+            attachment_id: {
+                allowNull: true,
+                unique: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
+                references: {
+                    model: 'attachments',
+                    key: 'id'
+                }
+            },
+            created_at: { type: Sequelize.DATE },
+            updated_at: { type: Sequelize.DATE }
+        },
+            {
+                initialAutoIncrement: 1001,
+
+            }
+        )
+
+        await queryInterface.createTable('job_titles', {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            },
+            name: { type: Sequelize.STRING },
+            created_at: { type: Sequelize.DATE },
+            updated_at: { type: Sequelize.DATE }
+   
+        },
+            {
+                initialAutoIncrement: 1001,
+
+            }
+        )
+
+
+
+        // await queryInterface.createTable('letters', {
+        //     id: {
+        //         allowNull: false,
+        //         autoIncrement: true,
+        //         primaryKey: true,
+        //         type: Sequelize.INTEGER
+        //     },
+   
+        // },
+        //     {
+        //         initialAutoIncrement: 1001,
+
+        //     }
+        // )
+
 
 
     },
+
+
+
+
     down: async (queryInterface, Sequelize) => {
         await queryInterface.dropAllTables()
     }

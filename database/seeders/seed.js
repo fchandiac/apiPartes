@@ -73,6 +73,24 @@ module.exports = {
       }
     ], {})
 
+    await queryInterface.bulkInsert('mail_references', [
+      {
+        name: 'Cuenta de agua',
+      },
+      {
+        name: 'Cuenta de luz CGE'
+      }
+    ], {})
+
+    await queryInterface.bulkInsert('job_titles', [
+      {
+        name: 'Administrador Municipal Parral',
+      },
+      {
+        name: 'Funcionario SII'
+      }
+    ], {})
+
   },
 
 };

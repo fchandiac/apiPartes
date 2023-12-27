@@ -61,11 +61,23 @@ function updateStatus(id, status, user_update_id) {
     return distribution
 }
 
+function findAll () {
+    const distribution = Distributions.findAll({
+        include: [
+            { model: Recipients, include: [{ model: Users }, { model: Departments }] },
+            { model: Users, as: 'user_update'}
+        ],
+    }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+
+    return distribution
+}
+
 distributions.create = create
 distributions.findAllByReference = findAllByReference
 distributions.findAllByRecipient = findAllByRecipient
 distributions.findOneById = findOneById
 distributions.updateStatus = updateStatus
+distributions.findAll = findAll
 
 module.exports = distributions
 

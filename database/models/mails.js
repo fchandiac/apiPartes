@@ -1,24 +1,27 @@
+
 'use strict';
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Decrees extends Model { }
-    Decrees.init({
+    class Mails extends Model { }
+    Mails.init({
         folio: DataTypes.INTEGER,
         year: DataTypes.INTEGER,
-        type: DataTypes.INTEGER,
         matter: DataTypes.STRING,
+        external: DataTypes.BOOLEAN,
+        sender: DataTypes.STRING,
         date: DataTypes.DATE,
-        attachment_id: DataTypes.INTEGER,
-        decrees_category_id: DataTypes.INTEGER,
+        mail_reference_id: DataTypes.INTEGER,
         department_id: DataTypes.INTEGER,
-        user_id: DataTypes.INTEGER
+        user_id: DataTypes.INTEGER,
+        attachment_id: DataTypes.INTEGER
     }, {
         sequelize,
-        modelName: 'Decrees',
+        modelName: 'Mails',
         underscored: true
     })
-    return Decrees
+
+    return Mails
+
+
 }
-
-
