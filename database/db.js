@@ -24,7 +24,7 @@ db.Distributions = require('./models/distributions')(db.connection, DataTypes)
 db.MailReferences = require('./models/mail_references')(db.connection, DataTypes)
 db.JobTitles = require('./models/job_titles')(db.connection, DataTypes)
 db.Mails = require('./models/mails')(db.connection, DataTypes)
-
+db.Letters = require('./models/letters')(db.connection, DataTypes)
 
 
 
@@ -44,6 +44,10 @@ db.Mails.belongsTo(db.Users)
 db.Mails.belongsTo(db.Attachments)
 db.Mails.belongsTo(db.Departments)
 
+db.Letters.belongsTo(db.Attachments)
+db.Letters.belongsTo(db.Users)
+db.Letters.belongsTo(db.JobTitles)
+db.Letters.belongsTo(db.Departments)
 
 
 

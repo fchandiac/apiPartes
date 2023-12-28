@@ -317,22 +317,71 @@ module.exports = {
             }
         )
 
+        await queryInterface.createTable('letters', {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            }, 
+            year: {type: Sequelize.INTEGER },
+            folio: {type: Sequelize.INTEGER },
+            matter: {type: Sequelize.STRING},
+            recipient: {type: Sequelize.STRING},
+            job_title_id: {
+                allowNull: true,
+                unique: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
+                references: {
+                    model: 'job_titles',
+                    key: 'id'
+                }
+            },
+            department_id: {
+                allowNull: true,
+                unique: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
+                references: {
+                    model: 'departments',
+                    key: 'id'
+                }
+            },
+            user_id: {
+                allowNull: true,
+                unique: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
+                references: {
+                    model: 'users',
+                    key: 'id'
+                }
+            },
+            attachment_id: {
+                allowNull: true,
+                unique: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
+                references: {
+                    model: 'attachments',
+                    key: 'id'
+                }
+            },
+            created_at: { type: Sequelize.DATE },
+            updated_at: { type: Sequelize.DATE }
+
+        }, 
+    
+            {
+                initialAutoIncrement: 1001,
+
+            }
+        )
 
 
-        // await queryInterface.createTable('letters', {
-        //     id: {
-        //         allowNull: false,
-        //         autoIncrement: true,
-        //         primaryKey: true,
-        //         type: Sequelize.INTEGER
-        //     },
-   
-        // },
-        //     {
-        //         initialAutoIncrement: 1001,
 
-        //     }
-        // )
+        
 
 
 
