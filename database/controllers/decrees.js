@@ -6,7 +6,7 @@ const { Op } = require("sequelize")
 
 
 async function create(type, matter, date, attachment_id, category_id, department_id, user_id){
-    const newFolio = await getNextFolioByYear(parseInt(moment(new Date()).format('YYYY')))
+    const newFolio = await getNextFolioByYearAndType(parseInt(moment(new Date()).format('YYYY')), type)
     const decree = await Decrees.create({ 
         folio: newFolio.data,
         year: parseInt(moment(new Date()).format('YYYY')),
@@ -97,6 +97,27 @@ async function getNextFolioByYear(year) {
       // Buscar el último decreto en el año especificado
       const lastDecree = await Decrees.findOne({
         where: { year },
+        order: [['folio', 'DESC']], // Ordenar por folio en orden descendente para obtener el último
+        limit: 1,
+      });
+
+      // Determinar el próximo folio
+      let nextFolio = 1;
+      if (lastDecree) {
+        nextFolio = lastDecree.folio + 1;
+      }
+  
+      return { 'code': 1, 'data': nextFolio };
+    } catch (err) {
+      return { 'code': 0, 'data': err };
+    }
+}
+
+async function getNextFolioByYearAndType(year, type) {
+    try {
+      // Buscar el último decreto en el año especificado
+      const lastDecree = await Decrees.findOne({
+        where: { year, type },
         order: [['folio', 'DESC']], // Ordenar por folio en orden descendente para obtener el último
         limit: 1,
       });
