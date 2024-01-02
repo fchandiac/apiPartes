@@ -36,6 +36,13 @@ module.exports = {
         pass: '9898',
         profile_id: 1001
       }, 
+      {
+        user_name: 'paula',
+        name: 'Paula Figueroa',
+        pass: 'joaquin27',
+        profile_id: 1001
+      }
+
      
 
     ], {})
@@ -73,23 +80,23 @@ module.exports = {
       }
     ], {})
 
-    await queryInterface.bulkInsert('mail_references', [
-      {
-        name: 'Cuenta de agua',
-      },
-      {
-        name: 'Cuenta de luz CGE'
-      }
-    ], {})
+    // await queryInterface.bulkInsert('mail_references', [
+    //   {
+    //     name: 'Cuenta de agua',
+    //   },
+    //   {
+    //     name: 'Cuenta de luz CGE'
+    //   }
+    // ], {})
 
-    await queryInterface.bulkInsert('job_titles', [
-      {
-        name: 'Administrador Municipal Parral',
-      },
-      {
-        name: 'Funcionario SII'
-      }
-    ], {})
+    // await queryInterface.bulkInsert('job_titles', [
+    //   {
+    //     name: 'Administrador Municipal Parral',
+    //   },
+    //   {
+    //     name: 'Funcionario SII'
+    //   }
+    // ], {})
 
   },
 
