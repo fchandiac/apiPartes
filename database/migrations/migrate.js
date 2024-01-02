@@ -151,7 +151,7 @@ module.exports = {
             folio: { type: Sequelize.INTEGER },
             year: { type: Sequelize.INTEGER },
             type: { type: Sequelize.INTEGER },
-            matter: { type: Sequelize.STRING },
+            matter: { type: Sequelize.STRING(1600) },
             date: { type: Sequelize.DATE },
             attachment_id: {
                 allowNull: true,
@@ -248,7 +248,7 @@ module.exports = {
             },
             year: { type: Sequelize.INTEGER },
             folio: { type: Sequelize.INTEGER },
-            matter: { type: Sequelize.STRING },
+            matter: { type: Sequelize.STRING(1600) },
             external: { type: Sequelize.BOOLEAN },
             sender: { type: Sequelize.STRING },
             date: { type: Sequelize.DATE },
@@ -328,7 +328,7 @@ module.exports = {
             }, 
             year: {type: Sequelize.INTEGER },
             folio: {type: Sequelize.INTEGER },
-            matter: {type: Sequelize.STRING},
+            matter: {type: Sequelize.STRING(1600)},
             recipient: {type: Sequelize.STRING},
             job_title_id: {
                 allowNull: true,
