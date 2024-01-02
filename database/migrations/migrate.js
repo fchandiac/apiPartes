@@ -1,5 +1,7 @@
 'use strict';
 
+//next
+
 const sequelize = require("sequelize");
 
 module.exports = {
