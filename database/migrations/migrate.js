@@ -202,7 +202,6 @@ module.exports = {
             }
         )
 
-
         await queryInterface.createTable('distributions', {
             id: {
                 allowNull: false,
@@ -340,16 +339,7 @@ module.exports = {
                     key: 'id'
                 }
             },
-            department_id: {
-                allowNull: true,
-                unique: false,
-                type: Sequelize.INTEGER,
-                onDelete: 'SET NULL',
-                references: {
-                    model: 'departments',
-                    key: 'id'
-                }
-            },
+            type: {type: Sequelize.INTEGER },
             user_id: {
                 allowNull: true,
                 unique: false,

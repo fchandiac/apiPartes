@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         matter: DataTypes.STRING,
         recipient: DataTypes.STRING,
         job_title_id: DataTypes.INTEGER,
-        department_id: DataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         user_id: DataTypes.INTEGER,
         attachment_id: DataTypes.INTEGER
     }, {

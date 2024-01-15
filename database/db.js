@@ -2,25 +2,25 @@ require('dotenv').config()
 const { Sequelize, DataTypes } = require('sequelize')
 const db = {}
 
-// db.connection = new Sequelize(
-//     process.env.DATABASE,
-//     process.env.USER_NAME,
-//     process.env.PASSWORD,
-//     {
-//         host: process.env.HOST,
-//         dialect: process.env.DIALECT,
-//     }
-// )
-
 db.connection = new Sequelize(
-    "partes",
-    "root",
-    "dom1234",
+    process.env.DATABASE,
+    process.env.USER_NAME,
+    process.env.PASSWORD,
     {
-        host: "localhost",
-        dialect: "mysql",
+        host: process.env.HOST,
+        dialect: process.env.DIALECT,
     }
 )
+
+// db.connection = new Sequelize(
+//     "partes",
+//     "root",
+//     "dom1234",
+//     {
+//         host: "localhost",
+//         dialect: "mysql",
+//     }
+// )
 
 
 db.Profiles = require('./models/profiles')(db.connection, DataTypes)
@@ -57,7 +57,7 @@ db.Mails.belongsTo(db.Departments)
 db.Letters.belongsTo(db.Attachments)
 db.Letters.belongsTo(db.Users)
 db.Letters.belongsTo(db.JobTitles)
-db.Letters.belongsTo(db.Departments)
+
 
 
 

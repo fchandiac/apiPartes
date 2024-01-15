@@ -3,8 +3,8 @@ const router = express.Router()
 const letters = require('../database/controllers/letters')
 
 router.post('/letters/create', async (req, res) => {
-    const { matter, recipient, job_title_id, department_id, user_id, attachment_id } = req.body
-    const letter = await letters.create(matter, recipient, job_title_id, department_id, user_id, attachment_id)
+    const { matter, recipient, job_title_id, type, user_id, attachment_id } = req.body
+    const letter = await letters.create(matter, recipient, job_title_id, type, user_id, attachment_id)
     res.json(letter)
 })
 

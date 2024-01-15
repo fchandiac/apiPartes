@@ -144,7 +144,7 @@ async function updateAttachment(id, attachment_id){
     return decree
 }
 
-function findOneById(id){
+async function findOneById(id){
     const decree = Decrees.findOne(
         { 
             where: { id: id },
@@ -160,6 +160,22 @@ function findOneById(id){
     return decree
 }
 
+async function update(id, type, matter, date, category_id, department_id){
+    const decree = await Decrees.update(
+        { 
+            type: type,
+            matter: matter,
+            date: date,
+            decrees_category_id: category_id,
+            department_id: department_id,
+        },
+        { where: { id: id } }
+    ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+
+    return decree
+}
+
+
 decrees.create = create
 decrees.findAll = findAll
 decrees.findAllByYear = findAllByYear
@@ -167,6 +183,7 @@ decrees.findAllBeteenDatesAndType = findAllBeteenDatesAndType
 decrees.findAllBeteenDates = findAllBeteenDates
 decrees.updateAttachment = updateAttachment
 decrees.findOneById = findOneById
+decrees.update = update
 
 module.exports = decrees
 

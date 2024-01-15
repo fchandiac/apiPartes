@@ -33,15 +33,38 @@ async function getNextFolioByYear(year) {
     }
 }
 
-async function create( matter, recipient, job_title_id, department_id, user_id, attachment_id){
-    const newFolio = await getNextFolioByYear(parseInt(moment(new Date()).format('YYYY')))
+async function getNextFolioByYearAndType(year, type) {
+    try {
+      // Buscar el último decreto en el año especificado
+      const lastDecree = await Letters.findOne({
+        where: { year, type },
+        order: [['folio', 'DESC']], // Ordenar por folio en orden descendente para obtener el último
+        limit: 1,
+      });
+
+      // Determinar el próximo folio
+      let nextFolio = 1;
+      if (lastDecree) {
+        nextFolio = lastDecree.folio + 1;
+      }
+  
+      return { 'code': 1, 'data': nextFolio };
+    } catch (err) {
+      return { 'code': 0, 'data': err };
+    }
+}
+
+async function create( matter, recipient, job_title_id, type, user_id, attachment_id){
+    //const newFolio = await getNextFolioByYear(parseInt(moment(new Date()).format('YYYY')))
+    const newFolio = await getNextFolioByYearAndType(parseInt(moment(new Date()).format('YYYY')), type)
+
     const letter = await Letters.create({ 
         folio: newFolio.data,
         year: parseInt(moment(new Date()).format('YYYY')),
         matter: matter,
         recipient: recipient,
         job_title_id: job_title_id,
-        department_id: department_id,
+        type: type,
         user_id: user_id,
         attachment_id: attachment_id
     }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
@@ -52,7 +75,6 @@ async function findAll(){
     const letter = await Letters.findAll({
         include: [
             { model: JobTitles },
-            { model: Departments },
             { model: Users },
             { model: Attachments }
         ]
@@ -69,7 +91,6 @@ async function findAllBeteenDates(start, end){
         },
         include: [
             { model: JobTitles },
-            { model: Departments },
             { model: Users },
             { model: Attachments }
         ]
