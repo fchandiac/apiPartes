@@ -4,8 +4,8 @@ const decrees = require('../database/controllers/decrees')
 
 
 router.post('/decrees/create', async (req, res) => {
-    const { type, matter, date, attachment_id, category_id, department_id, user_id } = req.body
-    const decree = await decrees.create(type, matter, date, attachment_id, category_id, department_id, user_id)
+    const { type, matter, date, attachment_id, category_id, department_id, user_id, third, sensitive, classification_id } = req.body
+    const decree = await decrees.create(type, matter, date, attachment_id, category_id, department_id, user_id, third, sensitive, classification_id)
     res.json(decree)
 })
 
@@ -48,9 +48,19 @@ router.post('/decrees/findOneById', async (req, res) => {
 
 
 router.post('/decrees/update', async (req, res) => {
-    const { id, type, matter, date, category_id, department_id } = req.body
-    const decree = await decrees.update(id, type, matter, date, category_id, department_id)
+    const { id, type, matter, date, category_id, department_id, third, sensitive, classification_id } = req.body
+    const decree = await decrees.update(id, type, matter, date, category_id, department_id, third, sensitive, classification_id)
     res.json(decree)
 })
+
+
+router.post('/decrees/findOneById', async (req, res) => {
+    const { id } = req.body
+    const decree = await decrees.findOneById(id)
+    res.json(decree)
+})
+ 
+
+
 
 module.exports = router

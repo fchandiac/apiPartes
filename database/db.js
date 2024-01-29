@@ -35,6 +35,7 @@ db.MailReferences = require('./models/mail_references')(db.connection, DataTypes
 db.JobTitles = require('./models/job_titles')(db.connection, DataTypes)
 db.Mails = require('./models/mails')(db.connection, DataTypes)
 db.Letters = require('./models/letters')(db.connection, DataTypes)
+db.Classifications = require('./models/classifications')(db.connection, DataTypes)
 
 
 
@@ -47,6 +48,8 @@ db.Decrees.belongsTo(db.DecreesCategories)
 db.Decrees.belongsTo(db.Departments)
 db.Decrees.belongsTo(db.Users)
 db.Decrees.belongsTo(db.Attachments)
+db.Decrees.belongsTo(db.Classifications)
+
 db.Distributions.belongsTo(db.Recipients)
 
 db.Mails.belongsTo(db.MailReferences)

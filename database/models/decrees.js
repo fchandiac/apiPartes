@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         attachment_id: DataTypes.INTEGER,
         decrees_category_id: DataTypes.INTEGER,
         department_id: DataTypes.INTEGER,
-        user_id: DataTypes.INTEGER
+        user_id: DataTypes.INTEGER,
+        third: DataTypes.BOOLEAN, 
+        sensitive: DataTypes.BOOLEAN, 
+        classification_id: DataTypes.INTEGER,
     }, {
         sequelize,
         modelName: 'Decrees',

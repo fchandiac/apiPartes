@@ -141,6 +141,22 @@ module.exports = {
             }
         )
 
+        await queryInterface.createTable('classifications', {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            },
+            name: { type: Sequelize.STRING },
+            created_at: { type: Sequelize.DATE },
+            updated_at: { type: Sequelize.DATE }
+        },
+            {
+                initialAutoIncrement: 1001,
+            }
+        )
+        
         await queryInterface.createTable('decrees', {
             id: {
                 allowNull: false,
@@ -153,6 +169,18 @@ module.exports = {
             type: { type: Sequelize.INTEGER },
             matter: { type: Sequelize.STRING(1600) },
             date: { type: Sequelize.DATE },
+            third: { type: Sequelize.BOOLEAN },
+            sensitive: { type: Sequelize.BOOLEAN },
+            classification_id: {
+                allowNull: true,
+                unique: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
+                references: {
+                    model: 'classifications',
+                    key: 'id'
+                }
+            },
             attachment_id: {
                 allowNull: true,
                 unique: false,
@@ -370,11 +398,6 @@ module.exports = {
 
             }
         )
-
-
-
-        
-
 
 
     },

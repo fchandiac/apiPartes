@@ -34,4 +34,12 @@ router.post('/distributions/updateStatus', async (req, res) => {
     res.json(distribution)
 })
 
+
+
+router.post('/distributions/createWithStatus', async (req, res) => {
+    const { reference_type, reference_id, recipient_id, user_update_id, status } = req.body
+    const distribution = await distributions.createWithStatus(reference_type, reference_id, recipient_id, user_update_id, status)
+    res.json(distribution)
+})
+
 module.exports = router

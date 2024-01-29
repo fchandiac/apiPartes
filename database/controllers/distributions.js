@@ -12,6 +12,17 @@ async function create(reference_type, reference_id, recipient_id, user_update_id
     return distribution
 }
 
+async function createWithStatus(reference_type, reference_id, recipient_id, user_update_id, status) {
+    const distribution = await Distributions.create({
+        reference_type: reference_type,
+        reference_id: reference_id,
+        recipient_id: recipient_id,
+        user_update_id: user_update_id,
+        status: status,
+    }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return distribution
+}
+
 async function findAllByReference(reference_type, reference_id) {
     const distribution = await Distributions.findAll(
         {
@@ -80,6 +91,7 @@ distributions.findAllByRecipient = findAllByRecipient
 distributions.findOneById = findOneById
 distributions.updateStatus = updateStatus
 distributions.findAll = findAll
+distributions.createWithStatus = createWithStatus
 
 module.exports = distributions
 
