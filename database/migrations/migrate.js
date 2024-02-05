@@ -399,8 +399,27 @@ module.exports = {
             }
         )
 
+        await queryInterface.createTable('routes', {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            }, 
+            name: {type: Sequelize.STRING },
+            url: {type: Sequelize.STRING },
+            created_at: { type: Sequelize.DATE },
+            updated_at: { type: Sequelize.DATE }
+        }, 
+    
+            {
+                initialAutoIncrement: 1001,
 
+            }
+        )
     },
+
+    
 
 
 

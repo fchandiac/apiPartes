@@ -82,6 +82,27 @@ async function findAllBeteenDatesAndType(start, end, type) {
     ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
     return decree
 }
+async function findAllBeteenDatesTypeAndClassification(start, end, type, classification_id) {
+    const decree = await Decrees.findAll(
+        {
+            where: {
+                date: {
+                    [Op.between]: [start, end]
+                },
+                type: type,
+                classification_id: classification_id
+            },
+            include: [
+                { model: Attachments },
+                { model: DecreesCategories },
+                { model: Departments },
+                { model: Users },
+                { model: Classifications }
+            ],
+        }
+    ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return decree
+}
 
 async function findAllBeteenDates(start, end) {
     const decree = await Decrees.findAll(
@@ -215,6 +236,7 @@ decrees.updateAttachment = updateAttachment
 decrees.findOneById = findOneById
 decrees.update = update
 decrees.findOneById = findOneById
+decrees.findAllBeteenDatesTypeAndClassification = findAllBeteenDatesTypeAndClassification
 
 module.exports = decrees
 

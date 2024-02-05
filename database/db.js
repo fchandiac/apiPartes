@@ -36,8 +36,7 @@ db.JobTitles = require('./models/job_titles')(db.connection, DataTypes)
 db.Mails = require('./models/mails')(db.connection, DataTypes)
 db.Letters = require('./models/letters')(db.connection, DataTypes)
 db.Classifications = require('./models/classifications')(db.connection, DataTypes)
-
-
+db.Routes = require('./models/routes')(db.connection, DataTypes)
 
 
 db.Users.belongsTo(db.Profiles)

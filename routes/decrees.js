@@ -61,6 +61,11 @@ router.post('/decrees/findOneById', async (req, res) => {
 })
  
 
+router.post('/decrees/findAllBeteenDatesTypeAndClassification', async (req, res) => {
+    const { start, end, type, classification_id } = req.body
+    const decree = await decrees.findAllBeteenDatesTypeAndClassification(start, end, type, classification_id)
+    res.json(decree)
+})
 
 
 module.exports = router

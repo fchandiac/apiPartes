@@ -28,6 +28,7 @@ app.use(require('./routes/job_titles'))
 app.use(require('./routes/mails'))
 app.use(require('./routes/letters'))
 app.use(require('./routes/classifications'))
+app.use(require('./routes/routes'))
 
 
 

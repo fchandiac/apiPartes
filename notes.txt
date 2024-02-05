@@ -4,3 +4,4 @@ npx sequelize-cli db:seed:all
 
 
 git rm --cached *.extensión // Elimina archivo del cache de gitgit comm
+
