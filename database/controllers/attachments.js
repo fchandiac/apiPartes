@@ -39,13 +39,56 @@ const formatName = (originalname) => {
 
 }
 
+// const downloadZip = async (archivos) => {
+//     // const files = archivos.filter(archivo => typeof archivo === 'string')
+//     console.log(archivos)
+//     return new Promise((resolve, reject) => {
+//         const zipStream = archiver('zip');
+
+//         // Ruta del archivo ZIP 
+//         const zipFilePath = path.join(__dirname, '../../public/attachments/archivos.zip');
+
+//         // Crear un flujo de escritura para el archivo ZIP
+//         const output = fs.createWriteStream(zipFilePath);
+
+//         // Manejar eventos de finalización y error
+//         output.on('close', () => {
+//             resolve(zipFilePath);
+//         });
+
+//         output.on('error', (error) => {
+//             reject(error);
+//         });
+
+//         // Conectar el flujo de salida del archivo ZIP al flujo de escritura
+//         zipStream.pipe(output);
+
+//         // Agregar cada archivo a comprimir al archivo ZIP
+//         archivos.forEach(archivo => {
+//             console.log(archivo)
+//             // path.join(__dirname, '../../public/attachments/${archivo}')
+//             const archivoPath = path.join(__dirname, '../../public/attachments/', archivo); // Ruta del archivo PDF
+//             //zipStream.append(fs.createReadStream(archivoPath), { name: archivo });
+//             if (fs.existsSync(archivoPath)) {
+//                 zipStream.append(fs.createReadStream(archivoPath), { name: archivo });
+//             } else {
+//                 console.error(`No se pudo encontrar el archivo: ${archivoPath}`);
+//             }
+//         });
+
+//         // Finalizar el archivo ZIP
+//         zipStream.finalize();
+//         console.log('zip creado')
+//     });
+// };
+
+
 const downloadZip = async (archivos) => {
-    // const files = archivos.filter(archivo => typeof archivo === 'string')
-    console.log(archivos)
+    console.log(archivos);
     return new Promise((resolve, reject) => {
         const zipStream = archiver('zip');
 
-        // Ruta del archivo ZIP 
+        // Ruta del archivo ZIP
         const zipFilePath = path.join(__dirname, '../../public/attachments/archivos.zip');
 
         // Crear un flujo de escritura para el archivo ZIP
@@ -65,12 +108,11 @@ const downloadZip = async (archivos) => {
 
         // Agregar cada archivo a comprimir al archivo ZIP
         archivos.forEach(archivo => {
-            console.log(archivo)
-            // path.join(__dirname, '../../public/attachments/${archivo}')
-            const archivoPath = path.join(__dirname, '../../public/attachments/', archivo); // Ruta del archivo PDF
-            //zipStream.append(fs.createReadStream(archivoPath), { name: archivo });
+            const archivoPath = path.join(__dirname, '../../public/attachments/', archivo.filename); // Ruta del archivo original
             if (fs.existsSync(archivoPath)) {
-                zipStream.append(fs.createReadStream(archivoPath), { name: archivo });
+                //const nombreNuevo = archivo.newFileName ? `${archivo.newFileName}_${archivo.filename}` : archivo.filename;
+                const nombreNuevo = archivo.newFileName 
+                zipStream.append(fs.createReadStream(archivoPath), { name: nombreNuevo });
             } else {
                 console.error(`No se pudo encontrar el archivo: ${archivoPath}`);
             }
@@ -78,9 +120,13 @@ const downloadZip = async (archivos) => {
 
         // Finalizar el archivo ZIP
         zipStream.finalize();
-        console.log('zip creado')
+        console.log('zip creado');
     });
 };
+
+
+// Llamada a la función con el nuevo array de
+
 
 
 const getMissingFiles = async (archivos) => {
