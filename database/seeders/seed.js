@@ -18,7 +18,7 @@ module.exports = {
       },
       { 
         name: 'Transparencia',
-        created_at: new Date(), //1003
+        created_at: new Date(), //1002
         updated_at: new Date()
       },
       { 
@@ -79,6 +79,8 @@ module.exports = {
         name: 'Rectifíquese',
       }
     ], {})
+
+    
 
     // await queryInterface.bulkInsert('mail_references', [
     //   {

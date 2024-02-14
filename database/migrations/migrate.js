@@ -417,6 +417,22 @@ module.exports = {
 
             }
         )
+
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'profiles\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'users\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'departments\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'recipients\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'decrees_categories\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'attachments\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'classifications\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'decrees\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'distributions\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'mail_references\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'mails\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'job_titles\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'letters\', RESEED, 1001)')
+        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'routes\', RESEED, 1001)')
+        
     },
 
     

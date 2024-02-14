@@ -11,7 +11,7 @@ app.set('json spaces', 2)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors({ origin: '*' }))
-app.use(express.static(path.join(__dirname, './public')))
+app.use(express.static(process.env.PATH_ATTACHMENTS))
 
 
 

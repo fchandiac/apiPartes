@@ -4,6 +4,7 @@ const multer = require('multer')
 const path = require('path')
 const fs = require('fs');
 const archiver = require('archiver');
+require('dotenv').config()
 
 async function create(url) {
     const attachment = await Attachments.create({ url: url }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
@@ -21,7 +22,8 @@ async function findOneById(id) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../../public/attachments'));
+        // cb(null, path.join(__dirname, '../../public/attachments'));
+        cb(null, process.env.PATH_ATTACHMENTS);
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' + formatName(file.originalname));
