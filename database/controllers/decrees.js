@@ -3,9 +3,6 @@ const { Decrees, Attachments, DecreesCategories, Departments, Users, Recipients,
 const decrees = {}
 const { Op } = require("sequelize")
 
-// test
-
-
 
 
 

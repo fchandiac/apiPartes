@@ -113,10 +113,24 @@ async function updateAttachment(id, attachment_id){
     return mail
 }
 
+async function update(id, matter, external, sender, date, reference_id, department_id){
+    const mail = await Mails.update({ 
+        matter: matter,
+        external: external,
+        sender: sender,
+        date: date,
+        mail_reference_id: reference_id,
+        department_id: department_id
+     }, { where: { id: id } }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+
+    return mail
+}
+
 mails.create = create
 mails.findAll = findAll
 mails.findOneById = findOneById
 mails.findAllBeteenDates = findAllBeteenDates
 mails.updateAttachment = updateAttachment
+mails.update = update
 
 module.exports = mails

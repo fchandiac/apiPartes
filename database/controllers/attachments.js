@@ -22,7 +22,6 @@ async function findOneById(id) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        // cb(null, path.join(__dirname, '../../public/attachments'));
         cb(null, process.env.PATH_ATTACHMENTS);
     },
     filename: function (req, file, cb) {
@@ -91,10 +90,11 @@ const downloadZip = async (archivos) => {
         const zipStream = archiver('zip');
 
         // Ruta del archivo ZIP
-        const zipFilePath = path.join(__dirname, '../../public/attachments/archivos.zip');
+        const zipFilePath = path.join(process.env.PATH_ATTACHMENTS,'/archivos.zip')
+        // console.log('zipFilePath',zipFilePath)
 
         // Crear un flujo de escritura para el archivo ZIP
-        const output = fs.createWriteStream(zipFilePath);
+        const output = fs.createWriteStream(zipFilePath)
 
         // Manejar eventos de finalización y error
         output.on('close', () => {
@@ -110,7 +110,8 @@ const downloadZip = async (archivos) => {
 
         // Agregar cada archivo a comprimir al archivo ZIP
         archivos.forEach(archivo => {
-            const archivoPath = path.join(__dirname, '../../public/attachments/', archivo.filename); // Ruta del archivo original
+            const archivoPath = path.join(process.env.PATH_ATTACHMENTS, archivo.filename); // Ruta del archivo original
+            console.log('archivoPath',archivoPath)
             if (fs.existsSync(archivoPath)) {
                 //const nombreNuevo = archivo.newFileName ? `${archivo.newFileName}_${archivo.filename}` : archivo.filename;
                 const nombreNuevo = archivo.newFileName 

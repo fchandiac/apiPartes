@@ -11,7 +11,7 @@ app.set('json spaces', 2)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors({ origin: '*' }))
-app.use(express.static(process.env.PATH_ATTACHMENTS))
+app.use(express.static(process.env.PATH_PUBLIC))
 
 
 
@@ -29,6 +29,7 @@ app.use(require('./routes/mails'))
 app.use(require('./routes/letters'))
 app.use(require('./routes/classifications'))
 app.use(require('./routes/routes'))
+app.use(require('./routes/records'))
 
 
 

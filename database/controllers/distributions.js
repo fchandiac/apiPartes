@@ -83,6 +83,11 @@ function findAll () {
     return distribution
 }
 
+async function updateRecipient(id, recipient_id) {
+    const distribution = await Distributions.update({ recipient_id: recipient_id }, { where: { id: id } }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return distribution
+}
+
 
 
 distributions.create = create
@@ -92,6 +97,7 @@ distributions.findOneById = findOneById
 distributions.updateStatus = updateStatus
 distributions.findAll = findAll
 distributions.createWithStatus = createWithStatus
+distributions.updateRecipient = updateRecipient
 
 module.exports = distributions
 

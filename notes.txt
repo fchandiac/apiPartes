@@ -5,3 +5,33 @@ npx sequelize-cli db:seed:all
 
 git rm --cached *.extensión // Elimina archivo del cache de gitgit comm
 
+// test
+
+Microsoft SQL Server 2014 - 12.0.2000.8 (X64) 
+Feb 20 2014 20:04:26 
+Enterprise Edition (64-bit) on Windows NT 6.3 <X64> (Build 9600: )
+
+
+2014.120.6449.1 
+2023-10-10
+
+
+UPDATE attachments 
+SET url = REPLACE(url, '192.168.0.121:3003', '192.168.0.139:3003') 
+WHERE url LIKE '%192.168.0.121:3003%';
+
+CREATE TABLE records (
+    id SERIAL PRIMARY KEY,
+    year INTEGER,
+    folio INTEGER,
+    document_type VARCHAR(255),
+    action VARCHAR(255),
+    user_id INTEGER,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+);
+
+
+
+

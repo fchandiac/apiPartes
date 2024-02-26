@@ -12,15 +12,6 @@ db.connection = new Sequelize(
     }
 )
 
-// db.connection = new Sequelize(
-//     "partes",
-//     "root",
-//     "dom1234",
-//     {
-//         host: "localhost",
-//         dialect: "mysql",
-//     }
-// )
 
 
 db.Profiles = require('./models/profiles')(db.connection, DataTypes)
@@ -37,6 +28,7 @@ db.Mails = require('./models/mails')(db.connection, DataTypes)
 db.Letters = require('./models/letters')(db.connection, DataTypes)
 db.Classifications = require('./models/classifications')(db.connection, DataTypes)
 db.Routes = require('./models/routes')(db.connection, DataTypes)
+db.Records = require('./models/records')(db.connection, DataTypes)
 
 
 db.Users.belongsTo(db.Profiles)
@@ -59,6 +51,8 @@ db.Mails.belongsTo(db.Departments)
 db.Letters.belongsTo(db.Attachments)
 db.Letters.belongsTo(db.Users)
 db.Letters.belongsTo(db.JobTitles)
+
+db.Records.belongsTo(db.Users)
 
 
 

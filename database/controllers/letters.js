@@ -103,10 +103,38 @@ async function updateAttachment(id, attachment_id){
     return letter
 }
 
+async function findOneById(id){
+    const letter = await Letters.findOne(
+        { 
+            where: { id: id },
+            include: [
+                { model: JobTitles },
+                { model: Users },
+                { model: Attachments }
+            ],
+        }
+        ).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+
+    return letter
+}
+
+async function update(id, matter, recipient, job_title_id, type){
+    const letter = await Letters.update({ 
+        matter: matter,
+        recipient: recipient,
+        job_title_id: job_title_id,
+        type: type
+    }, { where: { id: id } }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
+    return letter
+}
+
 
 letters.create = create
 letters.findAll = findAll
 letters.findAllBeteenDates = findAllBeteenDates
 letters.updateAttachment = updateAttachment
+letters.findOneById = findOneById
+letters.update = update
+
 
 module.exports = letters

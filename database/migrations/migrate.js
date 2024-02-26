@@ -418,20 +418,53 @@ module.exports = {
             }
         )
 
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'profiles\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'users\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'departments\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'recipients\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'decrees_categories\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'attachments\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'classifications\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'decrees\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'distributions\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'mail_references\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'mails\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'job_titles\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'letters\', RESEED, 1001)')
-        await queryInterface.sequelize.query('DBCC CHECKIDENT(\'routes\', RESEED, 1001)')
+        await queryInterface.createTable('records', {
+            id: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: Sequelize.INTEGER
+            }, 
+            year: {type: Sequelize.INTEGER },
+            folio: {type: Sequelize.INTEGER },
+            document_type: {type: Sequelize.STRING },
+            acttion: {type: Sequelize.STRING },
+            user_id: {
+                allowNull: true,
+                unique: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'SET NULL',
+                references: {
+                    model: 'users',
+                    key: 'id'
+                }
+            },
+            created_at: { type: Sequelize.DATE },
+            updated_at: { type: Sequelize.DATE }
+
+        }, 
+    
+            {
+                initialAutoIncrement: 1001,
+
+            }
+        )
+        
+
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'profiles\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'users\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'departments\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'recipients\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'decrees_categories\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'attachments\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'classifications\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'decrees\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'distributions\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'mail_references\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'mails\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'job_titles\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'letters\', RESEED, 1001)')
+        // await queryInterface.sequelize.query('DBCC CHECKIDENT(\'routes\', RESEED, 1001)')
         
     },
 

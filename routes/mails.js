@@ -32,4 +32,11 @@ router.post('/mails/updateAttachment', async (req, res) => {
     res.json(mail)
 })
 
+
+router.post('/mails/update', async (req, res) => {
+    const { id, matter, external, sender, date, reference_id, department_id } = req.body
+    const mail = await mails.update(id, matter, external, sender, date, reference_id, department_id)
+    res.json(mail)
+})
+
 module.exports = router

@@ -25,4 +25,18 @@ router.post('/letters/updateAttachment', async (req, res) => {
     res.json(letter)
 })
 
+
+router.post('/letters/findOneById', async (req, res) => {
+    const { id } = req.body
+    const letter = await letters.findOneById(id)
+    res.json(letter)
+})
+
+
+router.post('/letters/update', async (req, res) => {
+    const { id, matter, recipient, job_title_id, type } = req.body
+    const letter = await letters.update(id, matter, recipient, job_title_id, type)
+    res.json(letter)
+})
+
 module.exports = router
