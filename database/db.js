@@ -2,13 +2,15 @@ require('dotenv').config()
 const { Sequelize, DataTypes } = require('sequelize')
 const db = {}
 
+const { DATABASE, USER_NAME, PASSWORD, HOST, DIALECT } = require('../appConfig')
+
 db.connection = new Sequelize(
-    process.env.DATABASE,
-    process.env.USER_NAME,
-    process.env.PASSWORD,
+    DATABASE,
+    USER_NAME,
+    PASSWORD,
     {
-        host: process.env.HOST,
-        dialect: process.env.DIALECT,
+        host: HOST,
+        dialect: DIALECT,
     }
 )
 

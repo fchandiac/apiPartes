@@ -5,6 +5,7 @@ const path = require('path')
 const fs = require('fs');
 const archiver = require('archiver');
 require('dotenv').config()
+const { PATH_ATTACHMENTS } = require('../../appConfig')
 
 async function create(url) {
     const attachment = await Attachments.create({ url: url }).then(data => { return { 'code': 1, 'data': data } }).catch(err => { return { 'code': 0, 'data': err } })
@@ -22,7 +23,7 @@ async function findOneById(id) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, process.env.PATH_ATTACHMENTS);
+        cb(null, PATH_ATTACHMENTS);
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' + formatName(file.originalname));
@@ -90,7 +91,7 @@ const downloadZip = async (archivos) => {
         const zipStream = archiver('zip');
 
         // Ruta del archivo ZIP
-        const zipFilePath = path.join(process.env.PATH_ATTACHMENTS,'/archivos.zip')
+        const zipFilePath = path.join(PATH_ATTACHMENTS,'/archivos.zip')
         // console.log('zipFilePath',zipFilePath)
 
         // Crear un flujo de escritura para el archivo ZIP
@@ -110,7 +111,7 @@ const downloadZip = async (archivos) => {
 
         // Agregar cada archivo a comprimir al archivo ZIP
         archivos.forEach(archivo => {
-            const archivoPath = path.join(process.env.PATH_ATTACHMENTS, archivo.filename); // Ruta del archivo original
+            const archivoPath = path.join(PATH_ATTACHMENTS, archivo.filename); // Ruta del archivo original
             console.log('archivoPath',archivoPath)
             if (fs.existsSync(archivoPath)) {
                 //const nombreNuevo = archivo.newFileName ? `${archivo.newFileName}_${archivo.filename}` : archivo.filename;
@@ -136,7 +137,7 @@ const getMissingFiles = async (archivos) => {
     const missingFiles = [];
 
     for (const archivo of archivos) {
-        const archivoPath = path.join(__dirname, '../../public/attachments/', archivo);
+        const archivoPath = path.join(PATH_ATTACHMENTS, archivo);
         if (!fs.existsSync(archivoPath)) {
             missingFiles.push(archivo);
         }

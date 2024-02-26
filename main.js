@@ -4,14 +4,14 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const cors = require('cors')
-const port = process.env.PORT //|| 3003
+const { PORT, PATH_PUBLIC } = require('./appConfig')
 
 
 app.set('json spaces', 2)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors({ origin: '*' }))
-app.use(express.static(process.env.PATH_PUBLIC))
+app.use(express.static(PATH_PUBLIC))
 
 
 
@@ -33,6 +33,6 @@ app.use(require('./routes/records'))
 
 
 
-app.listen(port, () => {
-    console.log('server work! at port: ' + port)
+app.listen(PORT, () => {
+    console.log('server work! at port: ' + PORT)
 })
